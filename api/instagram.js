@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      "https://instagram120.p.rapidapi.com/api/instagram",
+      "https://instagram120.p.rapidapi.com/api/instagram/posts",
       {
         method: "POST",
         headers: {
