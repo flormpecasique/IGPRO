@@ -1,33 +1,49 @@
-const express = require("express")
-const cors = require("cors")
+// backend/server.js
+import fetch from "node-fetch";
 
-const downloadMedia = require("./downloader")
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-const app = express()
+  const { url, username } = req.body;
 
-app.use(cors())
-app.use(express.json())
+  if (!url && !username) {
+    return res.status(400).json({ error: "Please provide an Instagram URL or username" });
+  }
 
-app.post("/api/download", async(req,res)=>{
+  try {
+    const apiUrl = "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/index"; // ejemplo, cambia según tu API
+    const query = username ? `?username=${encodeURIComponent(username)}` : `?url=${encodeURIComponent(url)}`;
 
-const {url} = req.body
+    const response = await fetch(apiUrl + query, {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
+        "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com",
+      },
+    });
 
-try{
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(response.status).json({ error: text });
+    }
 
-const media = await downloadMedia(url)
+    const data = await response.json();
 
-res.json(media)
+    // Estandarizamos la respuesta para el frontend
+    const media = (data.media || []).map((item, index) => ({
+      id: index,
+      type: item.type || "photo",
+      url: item.url || item.download_url || "",
+      thumbnail: item.thumbnail || item.url || "",
+      caption: item.caption || "",
+      quality: item.quality || "HD",
+    }));
 
-}catch(e){
-
-res.status(500).json({error:"download failed"})
-
+    res.status(200).json({ media });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 }
-
-})
-
-app.listen(3000,()=>{
-
-console.log("Server running")
-
-})
