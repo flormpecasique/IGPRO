@@ -22,9 +22,9 @@ export default async function handler(req, res) {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
           "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-          "X-RapidAPI-Host": "instagram-scraper-stable-api.p.rapidapi.com"
+          "X-RapidAPI-Host": "instagram120.p.rapidapi.com"
         },
         body: params
       }
