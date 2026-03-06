@@ -11,32 +11,33 @@ export default async function handler(req, res) {
         const query = url || username;
 
         if (!query) {
-            return res.status(400).json({ error: "No URL or username provided" });
+            return res.status(400).json({ error: "No URL provided" });
         }
 
-        const response = await fetch("https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/get-info-rapidapi", {
+        const formData = new URLSearchParams();
+        formData.append("url", query);
+
+        const response = await fetch("https://instagram-scraper-stable-api.p.rapidapi.com/ig/ig-downloader", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
                 "X-RapidAPI-Host": "instagram-scraper-stable-api.p.rapidapi.com"
             },
-            body: JSON.stringify({
-                url: query
-            })
+            body: formData
         });
 
         const data = await response.json();
 
         if (!data) {
-            return res.status(500).json({ error: "No data returned from API" });
+            return res.status(500).json({ error: "No response from API" });
         }
 
         let media = [];
 
-        if (data.medias) {
+        if (data.data) {
 
-            media = data.medias.map((item, index) => ({
+            media = data.data.map((item, index) => ({
                 id: index,
                 type: item.type === "video" ? "video" : "photo",
                 thumbnail: item.thumbnail || item.url,
