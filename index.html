@@ -369,46 +369,69 @@
 
         // Fetch Logic
         async function fetchMedia() {
-            const inputUrl = document.getElementById('input-url').value;
-            const inputUser = document.getElementById('input-user').value;
-            const btn = document.getElementById('btn-fetch');
-            const loader = document.getElementById('global-loader');
-            
-            // Validar que al menos un campo tenga datos
-            if (!inputUrl && !inputUser) {
-                alert(currentLang === 'es' ? 'Por favor, ingresa una URL de Instagram o un usuario.' : 'Please enter an Instagram URL or username.');
-                return;
-            }
+
+    const inputUrl = document.getElementById('input-url').value;
+    const inputUser = document.getElementById('input-user').value;
+    const loader = document.getElementById('global-loader');
+
+    if (!inputUrl && !inputUser) {
+        alert(currentLang === 'es'
+            ? 'Por favor, ingresa una URL de Instagram o un usuario.'
+            : 'Please enter an Instagram URL or username.');
+        return;
+    }
+
+    loader.classList.remove('hidden');
+    loader.classList.add('flex');
+
+    try {
+
+        const response = await fetch("/api/instagram", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                url: inputUrl,
+                username: inputUser
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("API error");
+        }
+
+        const data = await response.json();
+
+        mockMedia = data.media || data.data || [];
+
+        renderGrid();
+
+        document.getElementById('results-section').classList.remove('hidden');
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+
+    } catch (error) {
+
+        console.error("Error:", error);
+
+        alert(currentLang === 'es'
+            ? 'Error conectando con el servidor.'
+            : 'Error connecting to the server');
+
+    } finally {
+
+        loader.classList.add('hidden');
+        loader.classList.remove('flex');
+
+    }
+}
 
             // Show Loader
             loader.classList.remove('hidden');
             loader.classList.add('flex');
 
             try {
-                // ====================================================================
-                // INTEGRACIÓN DE API REAL (ESTILO SSSINSTAGRAM)
-                // Nota: Instagram bloquea peticiones directas desde el navegador (CORS).
-                // Necesitarás un backend (Node.js/PHP) o una API externa (ej. RapidAPI).
-                // ====================================================================
-                
-                /* DESCOMENTAR ESTO PARA USAR TU API REAL:
-                const apiUrl = 'https://TU-BACKEND-O-RAPIDAPI.com/api/descargar';
-                const response = await fetch(apiUrl, {
-                    method: 'POST', // o GET dependiendo de tu API
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'X-RapidAPI-Key': 'TU_API_KEY_AQUI' // Solo si usas RapidAPI
-                    },
-                    body: JSON.stringify({ url: inputUrl, username: inputUser })
-                });
-                
-                if (!response.ok) throw new Error('Error en la API');
-                
-                const data = await response.json();
-                mockMedia = data.media; // Formatea la respuesta de tu API al array esperado
-                */
-
-                // SIMULACIÓN (Retraso artificial para el demo)
+               
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 generateMockData();
                 
