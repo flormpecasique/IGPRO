@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         const response = await fetch("https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/get-info-rapidapi", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
                 "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
                 "X-RapidAPI-Host": "instagram-scraper-stable-api.p.rapidapi.com"
             },
