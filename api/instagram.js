@@ -14,13 +14,13 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      "https://instagram120.p.rapidapi.com/api/instagram/posts",
+      "https://instagram-scraper-stable-api.p.rapidapi.com/get_ig_user_followers_v2.php",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
           "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-          "X-RapidAPI-Host": "instagram120.p.rapidapi.com"
+          "X-RapidAPI-Host": "instagram-scraper-stable-api.p.rapidapi.com"
         },
         body: JSON.stringify({
           url: query
