@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Instagram Downloader – Download Photos, Videos, Reels</title>
+
+<meta name="description" content="Download Instagram photos, videos, reels, stories and highlights in HD">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-950 font-sans">
+
+<nav class="p-4 flex justify-between max-w-6xl mx-auto">
+<h1 class="font-bold text-xl">IG DL PRO</h1>
+
+<button onclick="toggleDarkMode()">🌙</button>
+</nav>
+
+
+<section class="text-center py-20">
+
+<h1 class="text-4xl font-black mb-6">
+Instagram Downloader
+</h1>
+
+<p class="mb-10">
+Download Photos, Reels, Stories and Videos
+</p>
+
+</section>
+
+
+<section class="max-w-xl mx-auto p-6">
+
+<input
+id="input-url"
+class="w-full border p-3 rounded-lg mb-4"
+placeholder="Paste Instagram link"
+/>
+
+<button
+onclick="fetchMedia()"
+class="w-full bg-black text-white p-3 rounded-lg"
+>
+Download
+</button>
+
+</section>
+
+
+<section id="results"></section>
+
+
+<section class="text-center py-20">
+
+<h2 class="text-2xl mb-6">Support this project</h2>
+
+<a
+href="https://paypal.me/florpservices"
+target="_blank"
+class="bg-blue-600 text-white px-6 py-3 rounded-lg"
+>
+Donate with PayPal
+</a>
+
+</section>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
