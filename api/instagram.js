@@ -30,31 +30,38 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-console.log("API RESPONSE:", data);
+    console.log("API RESPONSE:", data);
 
-// detectar diferentes formatos de respuesta
-const medias =
-  data?.result?.medias ||
-  data?.data ||
-  data?.medias ||
-  [];
+    const medias =
+      data?.result?.medias ||
+      data?.data ||
+      data?.medias ||
+      [];
 
-if (!medias.length) {
-  return res.status(200).json({ media: [] });
-}
+    if (!medias.length) {
+      return res.status(200).json({ media: [] });
+    }
 
-const formatted = medias.map((m, i) => ({
-  id: i,
-  type: m.type === "video" ? "video" : "photo",
-  thumbnail: m.thumbnail || m.url,
-  quality: "HD",
-  caption: "Instagram media",
-  download: m.url || m.download
-}));
+    const formatted = medias.map((m, i) => ({
+      id: i,
+      type: m.type === "video" ? "video" : "photo",
+      thumbnail: m.thumbnail || m.url,
+      quality: "HD",
+      caption: "Instagram media",
+      download: m.url || m.download
+    }));
 
-res.status(200).json({
-  media: formatted
-});
+    res.status(200).json({
+      media: formatted
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      error: "Server error"
+    });
 
   }
 
