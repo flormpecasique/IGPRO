@@ -7,18 +7,14 @@ export default async function handler(req, res) {
   try {
 
     const { url, username } = req.body;
-
     const query = url || username;
 
     if (!query) {
-      return res.status(400).json({ error: "No URL provided" });
+      return res.status(400).json({ error: "No URL or username provided" });
     }
 
-    const params = new URLSearchParams();
-    params.append("url", query);
-
     const response = await fetch(
-      "https://instagram-scraper-stable-api.p.rapidapi.com/ig/ig-downloader",
+      "https://instagram120.p.rapidapi.com/api/instagram",
       {
         method: "POST",
         headers: {
@@ -26,7 +22,9 @@ export default async function handler(req, res) {
           "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
           "X-RapidAPI-Host": "instagram120.p.rapidapi.com"
         },
-        body: params
+        body: JSON.stringify({
+          url: query
+        })
       }
     );
 
@@ -34,11 +32,11 @@ export default async function handler(req, res) {
 
     console.log("API RESPONSE:", data);
 
-    if (!data || !data.result) {
+    if (!data || !data.data) {
       return res.status(200).json({ media: [] });
     }
 
-    const medias = data.result.medias || [];
+    const medias = data.data || [];
 
     const formatted = medias.map((m, i) => ({
       id: i,
