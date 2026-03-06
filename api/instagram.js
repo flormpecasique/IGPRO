@@ -14,13 +14,13 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      "https://instagram-scraper-stable-api.p.rapidapi.com/get_ig_user_followers_v2.php",
+      "https://instagram-public-bulk-scraper.p.rapidapi.com/v1/username_to_id?username=sooyaaa__",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
           "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-          "X-RapidAPI-Host": "instagram-scraper-stable-api.p.rapidapi.com"
+          "X-RapidAPI-Host": "instagram-public-bulk-scraper.p.rapidapi.com"
         },
         body: JSON.stringify({
           url: query
