@@ -258,7 +258,7 @@
             </div>
             
             <div class="pt-8 border-t border-slate-100 dark:border-slate-900 text-center flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs opacity-40">© 2024 IG DL PRO. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></p>
+                <p class="text-xs opacity-40">© 2026 Flor Peña. IG DL PRO. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></p>
                 <p class="text-xs opacity-60 font-medium italic" data-en="This tool is not affiliated with Instagram or Meta." data-es="Esta herramienta no está afiliada a Instagram ni a Meta.">
                     "This tool is not affiliated with Instagram or Meta."
                 </p>
@@ -385,32 +385,37 @@
             loader.classList.add('flex');
 
             try {
-                // ====================================================================
-                // INTEGRACIÓN DE API REAL (ESTILO SSSINSTAGRAM)
-                // Nota: Instagram bloquea peticiones directas desde el navegador (CORS).
-                // Necesitarás un backend (Node.js/PHP) o una API externa (ej. RapidAPI).
-                // ====================================================================
-                
-                /* DESCOMENTAR ESTO PARA USAR TU API REAL:
-                const apiUrl = 'https://TU-BACKEND-O-RAPIDAPI.com/api/descargar';
-                const response = await fetch(apiUrl, {
-                    method: 'POST', // o GET dependiendo de tu API
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'X-RapidAPI-Key': 'TU_API_KEY_AQUI' // Solo si usas RapidAPI
-                    },
-                    body: JSON.stringify({ url: inputUrl, username: inputUser })
-                });
-                
-                if (!response.ok) throw new Error('Error en la API');
-                
-                const data = await response.json();
-                mockMedia = data.media; // Formatea la respuesta de tu API al array esperado
-                */
 
-                // SIMULACIÓN (Retraso artificial para el demo)
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                generateMockData();
+const response = await fetch("/api/instagram", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+url: inputUrl,
+username: inputUser
+})
+});
+
+if (!response.ok) {
+throw new Error("API error");
+}
+
+const data = await response.json();
+
+mockMedia = data.media;
+
+renderGrid();
+
+document.getElementById('results-section').classList.remove('hidden');
+
+} catch (error) {
+
+console.error("Error:", error);
+alert("Error connecting to the server");
+
+}
+                
                 
                 renderGrid();
                 
