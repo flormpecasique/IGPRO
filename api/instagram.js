@@ -19,7 +19,7 @@ export default async function handler(req, res) {
             headers: {
                 "Content-Type": "application/json",
                 "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-                "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com"
+                "X-RapidAPI-Host": "instagram-scraper-stable-api.p.rapidapi.com"
             },
             body: JSON.stringify({
                 url: query
