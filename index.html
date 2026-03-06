@@ -1,545 +1,277 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title data-en="Instagram Downloader – Download Photos, Videos, Reels, Stories & Highlights" data-es="Descargador de Instagram – Descarga Fotos, Videos, Reels, Stories y Highlights">Instagram Downloader – Download Photos, Videos, Reels, Stories & Highlights</title>
-    <meta name="description" content="The ultimate tool to download Instagram content for free. Save Reels, Videos, Photos, and Stories in high quality HD. No login required.">
-    <meta name="keywords" content="instagram downloader, download instagram reels, download instagram videos, instagram story downloader, instagram highlight downloader, save ig photos">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Instagram Media Downloader Pro">
-    <meta property="og:description" content="Download Instagram Reels, Photos, and Stories in HD quality for free.">
-    <meta name="twitter:card" content="summary_large_image">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+<title>Instagram Downloader – Download Photos, Videos, Reels, Stories & Highlights</title>
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Instagram Media Downloader Pro",
-      "url": "https://yourdomain.com",
-      "description": "High-quality tool to download Instagram Photos, Videos, Reels, Stories & Highlights.",
-      "applicationCategory": "MultimediaApplication",
-      "operatingSystem": "All"
-    }
-    </script>
+<meta name="description" content="Download Instagram Reels, Photos, Videos, Stories and Highlights in HD quality. Free Instagram downloader.">
+<meta name="keywords" content="instagram downloader, download instagram reels, instagram video downloader, download instagram photos">
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        primary: {
-                            50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4',
-                            400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .dark .glass {
-            background: rgba(15, 23, 42, 0.7);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        .tab-active {
-            @apply bg-primary-600 text-white shadow-lg scale-105;
-        }
-        .loading-dots:after {
-            content: '.';
-            animation: dots 1.5s steps(5, end) infinite;
-        }
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60% { content: '...'; }
-            80%, 100% { content: ''; }
-        }
-    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: { sans: ['Inter', 'sans-serif'] },
+colors: {
+primary: {
+400:'#f472b6',
+500:'#ec4899',
+600:'#db2777',
+700:'#be185d'
+}
+}
+}
+}
+}
+</script>
+
+<style>
+.glass{
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.2);
+}
+.dark .glass{
+background:rgba(15,23,42,.7);
+border-color:rgba(255,255,255,.1);
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans">
 
-    <!-- Header / Navbar -->
-    <nav class="sticky top-0 z-50 glass py-4 px-6 border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 font-extrabold text-2xl tracking-tight text-primary-600">
-                <i data-lucide="instagram"></i>
-                <span>IG DL <span class="text-slate-900 dark:text-white">PRO</span></span>
-            </div>
-            
-            <div class="flex items-center gap-4">
-                <!-- Language Toggle -->
-                <button onclick="toggleLanguage()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-all font-medium text-sm">
-                    <span id="lang-label">ES</span>
-                </button>
-                
-                <!-- Dark Mode Toggle -->
-                <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">
-                    <i data-lucide="sun" id="sun-icon" class="hidden"></i>
-                    <i data-lucide="moon" id="moon-icon"></i>
-                </button>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans">
 
-                <a href="#donate" class="hidden md:block bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all">
-                   <span data-en="Support Us" data-es="Apóyanos">Support Us</span>
-                </a>
-            </div>
-        </div>
-    </nav>
+<nav class="py-4 px-6 glass sticky top-0">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
 
-    <!-- Hero Section -->
-    <header class="relative overflow-hidden py-20 px-6">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-30 dark:opacity-20 pointer-events-none">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-primary-400 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-400 rounded-full blur-[150px]"></div>
-        </div>
+<div class="flex items-center gap-2 text-primary-600 font-bold text-xl">
+<i data-lucide="instagram"></i>
+IG DL PRO
+</div>
 
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
-                <span data-en="Instagram Downloader – Download Photos, Videos, Reels, Stories & Highlights" 
-                      data-es="Descargador de Instagram – Fotos, Videos, Reels, Stories y Highlights">
-                    Instagram Downloader – Download Photos, Videos, Reels, Stories & Highlights
-                </span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto">
-                <span data-en="The fastest and most reliable way to save your favorite Instagram content in high definition. Just paste the link and download."
-                      data-es="La forma más rápida y confiable de guardar tu contenido favorito de Instagram en alta definición. Solo pega el enlace y descarga.">
-                    The fastest and most reliable way to save your favorite Instagram content in high definition. Just paste the link and download.
-                </span>
-            </p>
-            <a href="#downloader" class="bg-primary-600 hover:bg-primary-700 text-white text-lg font-bold px-10 py-4 rounded-2xl transition-all hover:scale-105 inline-block shadow-xl shadow-primary-500/20">
-                <span data-en="Start Downloading" data-es="Empezar a Descargar">Start Downloading</span>
-            </a>
-        </div>
-    </header>
+<div class="flex gap-4">
 
-    <!-- Downloader Section -->
-    <section id="downloader" class="py-12 px-6">
-        <div class="max-w-3xl mx-auto">
-            <div class="glass p-6 md:p-10 rounded-3xl shadow-2xl border-2 border-primary-500/10 dark:border-primary-400/5">
-                <div class="space-y-6">
-                    <!-- Input URL -->
-                    <div class="relative group">
-                        <label class="block text-sm font-bold mb-2 opacity-70 ml-2" data-en="Instagram URL" data-es="URL de Instagram">Instagram URL</label>
-                        <div class="flex items-center bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden focus-within:border-primary-500 transition-all p-1">
-                            <span class="px-4 text-slate-400"><i data-lucide="link"></i></span>
-                            <input type="text" id="input-url" placeholder="https://www.instagram.com/reels/..." class="w-full py-3 px-2 bg-transparent outline-none font-medium">
-                        </div>
-                    </div>
+<button onclick="toggleLanguage()" class="px-3 py-1 bg-slate-200 dark:bg-slate-800 rounded">
+<span id="lang-label">ES</span>
+</button>
 
-                    <div class="flex items-center gap-4 py-2">
-                        <hr class="flex-grow border-slate-200 dark:border-slate-800">
-                        <span class="text-xs font-bold uppercase tracking-widest opacity-50" data-en="OR" data-es="O">OR</span>
-                        <hr class="flex-grow border-slate-200 dark:border-slate-800">
-                    </div>
+<button onclick="toggleDarkMode()" class="px-3 py-1 bg-slate-200 dark:bg-slate-800 rounded">
+🌙
+</button>
 
-                    <!-- Input Username -->
-                    <div class="relative group">
-                        <label class="block text-sm font-bold mb-2 opacity-70 ml-2" data-en="Instagram Username" data-es="Usuario de Instagram">Instagram Username</label>
-                        <div class="flex items-center bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden focus-within:border-primary-500 transition-all p-1">
-                            <span class="px-4 text-slate-400"><i data-lucide="user"></i></span>
-                            <input type="text" id="input-user" placeholder="@username" class="w-full py-3 px-2 bg-transparent outline-none font-medium">
-                        </div>
-                    </div>
+</div>
+</div>
+</nav>
 
-                    <button onclick="fetchMedia()" id="btn-fetch" class="w-full bg-slate-900 dark:bg-primary-600 hover:bg-primary-700 text-white font-bold py-5 rounded-2xl text-xl transition-all flex items-center justify-center gap-3">
-                        <i data-lucide="search"></i>
-                        <span data-en="Fetch Media" data-es="Obtener Contenido">Fetch Media</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Results Area (Hidden by Default) -->
-    <section id="results-section" class="hidden py-12 px-6 bg-slate-100 dark:bg-slate-900/50 min-h-[600px]">
-        <div class="max-w-7xl mx-auto">
-            
-            <!-- Category Tabs -->
-            <div class="flex flex-wrap justify-center gap-2 mb-12" id="filter-tabs">
-                <button onclick="filterContent('all')" class="tab-btn active px-6 py-3 rounded-full font-bold transition-all bg-white dark:bg-slate-800 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2" data-type="all">
-                    <i data-lucide="layout-grid" class="w-4 h-4"></i>
-                    <span data-en="All" data-es="Todos">All</span>
-                </button>
-                <button onclick="filterContent('photo')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all bg-white dark:bg-slate-800 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2" data-type="photo">
-                    <i data-lucide="image" class="w-4 h-4"></i>
-                    <span data-en="Photos" data-es="Fotos">Photos</span>
-                </button>
-                <button onclick="filterContent('video')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all bg-white dark:bg-slate-800 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2" data-type="video">
-                    <i data-lucide="video" class="w-4 h-4"></i>
-                    <span data-en="Videos" data-es="Videos">Videos</span>
-                </button>
-                <button onclick="filterContent('reel')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all bg-white dark:bg-slate-800 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2" data-type="reel">
-                    <i data-lucide="clapperboard" class="w-4 h-4"></i>
-                    <span data-en="Reels" data-es="Reels">Reels</span>
-                </button>
-                <button onclick="filterContent('story')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all bg-white dark:bg-slate-800 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2" data-type="story">
-                    <i data-lucide="circle-dashed" class="w-4 h-4"></i>
-                    <span data-en="Stories" data-es="Stories">Stories</span>
-                </button>
-                <button onclick="filterContent('highlight')" class="tab-btn px-6 py-3 rounded-full font-bold transition-all bg-white dark:bg-slate-800 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2" data-type="highlight">
-                    <i data-lucide="star" class="w-4 h-4"></i>
-                    <span data-en="Highlights" data-es="Highlights">Highlights</span>
-                </button>
-            </div>
+<header class="py-20 text-center px-6">
+<h1 class="text-4xl md:text-6xl font-black mb-6">
+Instagram Downloader
+</h1>
 
-            <!-- Media Grid -->
-            <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Cards will be injected here -->
-            </div>
+<p class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto">
+Download Instagram photos, videos, reels and stories in HD quality.
+</p>
 
-            <!-- No Results Message -->
-            <div id="no-results" class="hidden text-center py-20 opacity-50">
-                <i data-lucide="frown" class="w-16 h-16 mx-auto mb-4"></i>
-                <p class="text-xl font-bold" data-en="No media found in this category" data-es="No se encontró contenido en esta categoría">No media found in this category</p>
-            </div>
-        </div>
-    </section>
+<a href="#downloader" class="bg-primary-600 text-white px-10 py-4 rounded-xl font-bold">
+Start Downloading
+</a>
+</header>
 
-    <!-- Support / Donation Section -->
-    <section id="donate" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto glass p-8 md:p-12 rounded-[2.5rem] text-center shadow-xl border border-primary-100 dark:border-primary-900/20">
-            <div class="inline-flex p-4 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 mb-6">
-                <i data-lucide="heart" class="w-10 h-10 fill-current"></i>
-            </div>
-            <h2 class="text-3xl font-bold mb-4" data-en="Support This Tool" data-es="Apoya este proyecto">Support This Tool</h2>
-            <p class="text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto" data-en="This service is free and ad-free. Your small donation helps us keep the servers running and the tool updated." data-es="Este servicio es gratuito y sin anuncios. Tu pequeña donación nos ayuda a mantener los servidores en funcionamiento y la herramienta actualizada.">
-                This service is free and ad-free. Your small donation helps us keep the servers running and the tool updated.
-            </p>
-            <a href="https://paypal.me/florpservices" target="_blank" class="bg-[#0070ba] hover:bg-[#003087] text-white px-8 py-4 rounded-2xl font-bold text-lg inline-flex items-center gap-3 transition-all transform hover:-translate-y-1">
-                <i data-lucide="external-link"></i>
-                <span data-en="Support via PayPal" data-es="Apoyar vía PayPal">Support via PayPal</span>
-            </a>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-                <div>
-                    <div class="flex items-center gap-2 font-extrabold text-xl tracking-tight text-primary-600 mb-6">
-                        <i data-lucide="instagram"></i>
-                        <span>IG DL <span class="text-slate-900 dark:text-white">PRO</span></span>
-                    </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed" data-en="The most advanced Instagram media downloader. Professional, safe, and fast." data-es="El descargador de contenido de Instagram más avanzado. Profesional, seguro y rápido.">
-                        The most advanced Instagram media downloader. Professional, safe, and fast.
-                    </p>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <h4 class="font-bold uppercase text-xs tracking-widest opacity-50 mb-2">Legal</h4>
-                    <a href="#" class="text-sm hover:text-primary-600 transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-sm hover:text-primary-600 transition-colors">Terms of Service</a>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <h4 class="font-bold uppercase text-xs tracking-widest opacity-50 mb-2">Connect</h4>
-                    <a href="#" class="text-sm hover:text-primary-600 transition-colors">Contact Us</a>
-                    <a href="https://paypal.me/florpservices" class="text-sm hover:text-primary-600 transition-colors">Donate</a>
-                </div>
-            </div>
-            
-            <div class="pt-8 border-t border-slate-100 dark:border-slate-900 text-center flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs opacity-40">© 2026 Flor Peña. IG DL PRO. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></p>
-                <p class="text-xs opacity-60 font-medium italic" data-en="This tool is not affiliated with Instagram or Meta." data-es="Esta herramienta no está afiliada a Instagram ni a Meta.">
-                    "This tool is not affiliated with Instagram or Meta."
-                </p>
-            </div>
-        </div>
-    </footer>
+<section id="downloader" class="py-12 px-6">
+<div class="max-w-3xl mx-auto">
 
-    <!-- Overlay Loader -->
-    <div id="global-loader" class="fixed inset-0 bg-slate-950/80 z-[100] hidden flex-col items-center justify-center backdrop-blur-md">
-        <div class="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-        <p class="text-white font-bold text-xl tracking-wide loading-dots" data-en="Fetching high quality media" data-es="Obteniendo contenido en alta calidad">Fetching high quality media</p>
-    </div>
+<div class="glass p-8 rounded-2xl">
 
-    <script>
-        // State Management
-        let currentLang = 'en';
-        let currentFilter = 'all';
-        let mockMedia = [];
+<div class="mb-4">
+<label class="block mb-2 font-bold">Instagram URL</label>
+<input id="input-url" class="w-full p-3 rounded border" placeholder="https://instagram.com/reel/...">
+</div>
 
-        // Initialization
-        window.onload = async () => {
-            lucide.createIcons();
-            initTheme();
-            await initLanguage();
-            updateUI();
-        };
+<div class="text-center my-4 text-sm opacity-60">OR</div>
 
-        // IP & Language Detection
-        async function initLanguage() {
-            try {
-                // 1. Revisar si el usuario ya eligió un idioma antes
-                if (localStorage.getItem('lang')) {
-                    currentLang = localStorage.getItem('lang');
-                    return;
-                }
-                
-                // 2. Detección por IP
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                
-                // Países hispanohablantes
-                const esCountries = ['ES', 'MX', 'AR', 'CO', 'CL', 'PE', 'VE', 'EC', 'GT', 'CU', 'BO', 'DO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 'UY', 'GQ', 'PR'];
-                
-                if (esCountries.includes(data.country_code)) {
-                    currentLang = 'es';
-                } else {
-                    // 3. Respaldo: idioma del navegador
-                    const browserLang = navigator.language || navigator.userLanguage;
-                    currentLang = browserLang.startsWith('es') ? 'es' : 'en';
-                }
-            } catch (error) {
-                console.warn('No se pudo detectar la IP, usando el idioma del navegador:', error);
-                const browserLang = navigator.language || navigator.userLanguage;
-                currentLang = browserLang.startsWith('es') ? 'es' : 'en';
-            }
-        }
+<div class="mb-6">
+<label class="block mb-2 font-bold">Instagram Username</label>
+<input id="input-user" class="w-full p-3 rounded border" placeholder="@username">
+</div>
 
-        // Theme Toggle
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateIcons();
-        }
+<button onclick="fetchMedia()" id="btn-fetch" class="w-full bg-black text-white py-4 rounded-xl font-bold">
+Fetch Media
+</button>
 
-        function initTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-            updateIcons();
-        }
+</div>
+</div>
+</section>
 
-        function updateIcons() {
-            const isDark = document.documentElement.classList.contains('dark');
-            document.getElementById('sun-icon').classList.toggle('hidden', !isDark);
-            document.getElementById('moon-icon').classList.toggle('hidden', isDark);
-        }
 
-        // Language Toggle
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'es' : 'en';
-            localStorage.setItem('lang', currentLang); // Guardar preferencia del usuario
-            updateUI();
-        }
+<section id="results-section" class="hidden py-12 px-6">
 
-        function updateUI() {
-            // Update labels
-            document.getElementById('lang-label').innerText = currentLang === 'en' ? 'ES' : 'EN';
-            
-            // Toggle visibility based on data attributes
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerText = el.getAttribute(`data-${currentLang}`);
-            });
+<div class="max-w-6xl mx-auto">
 
-            // Update Input Placeholders
-            const urlInput = document.getElementById('input-url');
-            const userInput = document.getElementById('input-user');
-            if (currentLang === 'es') {
-                urlInput.placeholder = "Pega el enlace aquí...";
-                userInput.placeholder = "@nombredeusuario";
-            } else {
-                urlInput.placeholder = "https://www.instagram.com/reels/...";
-                userInput.placeholder = "@username";
-            }
-        }
+<div id="media-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 
-        // Fetch Logic
-        async function fetchMedia() {
-            const inputUrl = document.getElementById('input-url').value;
-            const inputUser = document.getElementById('input-user').value;
-            const btn = document.getElementById('btn-fetch');
-            const loader = document.getElementById('global-loader');
-            
-            // Validar que al menos un campo tenga datos
-            if (!inputUrl && !inputUser) {
-                alert(currentLang === 'es' ? 'Por favor, ingresa una URL de Instagram o un usuario.' : 'Please enter an Instagram URL or username.');
-                return;
-            }
+<div id="no-results" class="hidden text-center opacity-50 py-20">
+No media found
+</div>
 
-            // Show Loader
-            loader.classList.remove('hidden');
-            loader.classList.add('flex');
+</div>
+</section>
 
-            try {
 
-const response = await fetch("/api/instagram", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
+<footer class="py-10 text-center border-t">
+<p class="text-sm opacity-60">
+© 2026 Flor Peña
+</p>
+</footer>
+
+
+<div id="global-loader" class="fixed inset-0 hidden flex items-center justify-center bg-black/70 text-white text-xl">
+Loading...
+</div>
+
+
+<script>
+
+let currentLang='en'
+let mockMedia=[]
+let currentFilter='all'
+
+window.onload=()=>{
+lucide.createIcons()
+initTheme()
+}
+
+
+function toggleDarkMode(){
+document.documentElement.classList.toggle('dark')
+}
+
+
+function initTheme(){
+if(localStorage.theme==='dark'){
+document.documentElement.classList.add('dark')
+}
+}
+
+
+function toggleLanguage(){
+currentLang=currentLang==='en'?'es':'en'
+document.getElementById('lang-label').innerText=currentLang==='en'?'ES':'EN'
+}
+
+
+async function fetchMedia(){
+
+const inputUrl=document.getElementById('input-url').value
+const inputUser=document.getElementById('input-user').value
+const loader=document.getElementById('global-loader')
+
+if(!inputUrl && !inputUser){
+alert('Please enter URL or username')
+return
+}
+
+loader.classList.remove('hidden')
+loader.classList.add('flex')
+
+try{
+
+const response=await fetch("/api/instagram",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
 },
-body: JSON.stringify({
-url: inputUrl,
-username: inputUser
+body:JSON.stringify({
+url:inputUrl,
+username:inputUser
 })
-});
+})
 
-if (!response.ok) {
-throw new Error("API error");
+if(!response.ok){
+throw new Error("API error")
 }
 
-const data = await response.json();
+const data=await response.json()
 
-mockMedia = data.media;
+mockMedia=data.media || data.data || []
 
-renderGrid();
+renderGrid()
 
-document.getElementById('results-section').classList.remove('hidden');
+document.getElementById('results-section').classList.remove('hidden')
 
-} catch (error) {
+}catch(error){
 
-console.error("Error:", error);
-alert("Error connecting to the server");
+console.error(error)
+alert("Error connecting to server")
+
+}finally{
+
+loader.classList.add('hidden')
+loader.classList.remove('flex')
 
 }
-                
-                
-                renderGrid();
-                
-                document.getElementById('results-section').classList.remove('hidden');
-                document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-            } catch (error) {
-                console.error("Error obteniendo el contenido:", error);
-                alert(currentLang === 'es' ? 'Hubo un error al conectar con el servidor.' : 'There was an error connecting to the server.');
-            } finally {
-                // Ocultar loader siempre (falle o funcione)
-                loader.classList.add('hidden');
-                loader.classList.remove('flex');
-            }
-        }
 
-        function generateMockData() {
-            // Randomly generating content to demonstrate the filter
-            const types = ['photo', 'video', 'reel', 'story', 'highlight'];
-            mockMedia = Array.from({ length: 12 }, (_, i) => ({
-                id: i,
-                type: types[Math.floor(Math.random() * types.length)],
-                quality: 'HD 1080p',
-                thumbnail: `https://picsum.photos/seed/${i + 50}/600/800`,
-                caption: `Amazing Instagram ${types[i % 5]} content #${i}`
-            }));
-        }
+}
 
-        function filterContent(type) {
-            currentFilter = type;
-            
-            // Update Tab UI
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                if (btn.getAttribute('data-type') === type) {
-                    btn.classList.add('bg-primary-600', 'text-white', 'shadow-lg', 'scale-105');
-                    btn.classList.remove('bg-white', 'dark:bg-slate-800');
-                } else {
-                    btn.classList.remove('bg-primary-600', 'text-white', 'shadow-lg', 'scale-105');
-                    btn.classList.add('bg-white', 'dark:bg-slate-800');
-                }
-            });
 
-            renderGrid();
-        }
+function renderGrid(){
 
-        function renderGrid() {
-            const grid = document.getElementById('media-grid');
-            const noResults = document.getElementById('no-results');
-            grid.innerHTML = '';
-            
-            const filtered = currentFilter === 'all' 
-                ? mockMedia 
-                : mockMedia.filter(item => item.type === currentFilter);
+const grid=document.getElementById('media-grid')
+const noResults=document.getElementById('no-results')
 
-            if (filtered.length === 0) {
-                noResults.classList.remove('hidden');
-                return;
-            } else {
-                noResults.classList.add('hidden');
-            }
+grid.innerHTML=""
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "group relative glass rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 dark:border-slate-800";
-                
-                card.innerHTML = `
-                    <div class="aspect-[4/5] overflow-hidden relative">
-                        <img src="${item.thumbnail}" alt="Thumbnail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                            <p class="text-white text-sm font-medium line-clamp-2">${item.caption}</p>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
-                            ${item.quality}
-                        </div>
-                        <div class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1">
-                            ${getTypeIcon(item.type)} ${item.type}
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <button onclick="simulateDownload(${item.id})" class="w-full bg-slate-900 dark:bg-slate-800 hover:bg-primary-600 dark:hover:bg-primary-600 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 group/btn">
-                            <i data-lucide="download" class="w-4 h-4 transition-transform group-hover/btn:translate-y-1"></i>
-                            <span data-en="Download" data-es="Descargar">${currentLang === 'en' ? 'Download' : 'Descargar'}</span>
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            
-            lucide.createIcons();
-        }
+if(!mockMedia || mockMedia.length===0){
+noResults.classList.remove('hidden')
+return
+}else{
+noResults.classList.add('hidden')
+}
 
-        function getTypeIcon(type) {
-            switch(type) {
-                case 'photo': return '<i data-lucide="image" class="w-3 h-3"></i>';
-                case 'video': return '<i data-lucide="video" class="w-3 h-3"></i>';
-                case 'reel': return '<i data-lucide="clapperboard" class="w-3 h-3"></i>';
-                case 'story': return '<i data-lucide="circle-dashed" class="w-3 h-3"></i>';
-                case 'highlight': return '<i data-lucide="star" class="w-3 h-3"></i>';
-                default: return '';
-            }
-        }
+mockMedia.forEach(item=>{
 
-        function simulateDownload(id) {
-            const btn = event.currentTarget;
-            const originalHTML = btn.innerHTML;
-            
-            btn.disabled = true;
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> ${currentLang === 'en' ? 'Processing...' : 'Procesando...'}`;
-            lucide.createIcons();
+const card=document.createElement('div')
 
-            setTimeout(() => {
-                btn.classList.replace('bg-slate-900', 'bg-green-600');
-                btn.classList.replace('dark:bg-slate-800', 'bg-green-600');
-                btn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> ${currentLang === 'en' ? 'Done!' : '¡Listo!'}`;
-                lucide.createIcons();
+card.className="border rounded-xl overflow-hidden"
 
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = originalHTML;
-                    btn.classList.replace('bg-green-600', 'bg-slate-900');
-                    btn.classList.add('dark:bg-slate-800');
-                    lucide.createIcons();
-                }, 2000);
-            }, 1500);
-        }
-    </script>
+card.innerHTML=`
+<img src="${item.thumbnail || ''}" class="w-full">
+
+<div class="p-4">
+
+<button onclick="downloadMedia('${item.url || ''}')" class="w-full bg-primary-600 text-white py-2 rounded">
+Download
+</button>
+
+</div>
+`
+
+grid.appendChild(card)
+
+})
+
+}
+
+
+function downloadMedia(url){
+if(!url){
+alert("Download link not available")
+return
+}
+window.open(url,"_blank")
+}
+
+</script>
+
 </body>
 </html>
