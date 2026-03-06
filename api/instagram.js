@@ -1,53 +1,49 @@
 export default async function handler(req, res) {
 
-    if (req.method !== 'POST') {
+    if (req.method !== "POST") {
         return res.status(405).json({ error: "Method not allowed" });
     }
 
-    const { url, username } = req.body;
-
     try {
 
-        const apiUrl = url
-            ? `https://instagram-scraper-api2.p.rapidapi.com/v1/post?url=${encodeURIComponent(url)}`
-            : `https://instagram-scraper-api2.p.rapidapi.com/v1/user_posts?username=${encodeURIComponent(username)}`;
+        const { url, username } = req.body;
 
-        const response = await fetch(apiUrl, {
+        const query = url || username;
+
+        if (!query) {
+            return res.status(400).json({ error: "No URL or username provided" });
+        }
+
+        const response = await fetch("https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/get-info-rapidapi", {
+            method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-                "X-RapidAPI-Host": "instagram-scraper-api2.p.rapidapi.com"
-            }
+                "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com"
+            },
+            body: JSON.stringify({
+                url: query
+            })
         });
 
         const data = await response.json();
 
-        const media = [];
+        if (!data) {
+            return res.status(500).json({ error: "No data returned from API" });
+        }
 
-        if (data.data) {
+        let media = [];
 
-            data.data.forEach(post => {
+        if (data.medias) {
 
-                if (post.video_url) {
-                    media.push({
-                        type: "video",
-                        url: post.video_url,
-                        thumbnail: post.thumbnail_url,
-                        quality: "HD"
-                    });
-                }
-
-                if (post.image_versions2) {
-                    post.image_versions2.candidates.forEach(img => {
-                        media.push({
-                            type: "photo",
-                            url: img.url,
-                            thumbnail: img.url,
-                            quality: "HD"
-                        });
-                    });
-                }
-
-            });
+            media = data.medias.map((item, index) => ({
+                id: index,
+                type: item.type === "video" ? "video" : "photo",
+                thumbnail: item.thumbnail || item.url,
+                quality: "HD",
+                caption: "Instagram Media",
+                download: item.url
+            }));
 
         }
 
@@ -57,8 +53,9 @@ export default async function handler(req, res) {
 
         console.error(error);
 
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({
+            error: "Server error"
+        });
 
     }
-
 }
