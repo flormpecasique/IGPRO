@@ -426,28 +426,7 @@
     }
 }
 
-            // Show Loader
-            loader.classList.remove('hidden');
-            loader.classList.add('flex');
-
-            try {
-               
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                generateMockData();
-                
-                renderGrid();
-                
-                document.getElementById('results-section').classList.remove('hidden');
-                document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-            } catch (error) {
-                console.error("Error obteniendo el contenido:", error);
-                alert(currentLang === 'es' ? 'Hubo un error al conectar con el servidor.' : 'There was an error connecting to the server.');
-            } finally {
-                // Ocultar loader siempre (falle o funcione)
-                loader.classList.add('hidden');
-                loader.classList.remove('flex');
-            }
-        }
+           
 
         function generateMockData() {
             // Randomly generating content to demonstrate the filter
