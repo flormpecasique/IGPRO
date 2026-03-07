@@ -1,6 +1,8 @@
 # IGPRO – Instagram Media Downloader
 
-(![Preview](/preview.png)
+## Preview
+
+![IGPRO Preview](preview.png)
 
 ---
 
