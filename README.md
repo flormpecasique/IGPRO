@@ -14,7 +14,7 @@
 </p>
 
 
-## 📌 Descripción / Description
+# Descripción / Description
 
 IGPRO is a lightweight web prototype designed to demonstrate how a web application could allow users to download publicly available Instagram media such as photos, videos, reels, stories, and highlights from a profile URL or username.
 
