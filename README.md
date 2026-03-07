@@ -1,15 +1,18 @@
 # IGPRO – Instagram Media Downloader
+![Status](https://img.shields.io/badge/status-prototype-orange)
+![Frontend](https://img.shields.io/badge/frontend-HTML%20%7C%20JS%20%7C%20Tailwind-blue)
+![Deployment](https://img.shields.io/badge/deployed-Vercel-black)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Preview
 
 ![IGPRO Preview](preview.png)
+<p align="center">
+  <a href="https://igpro.vercel.app/">
+    <img src="https://img.shields.io/badge/Live%20Demo-Visit%20Website-black?style=for-the-badge">
+  </a>
+</p>
 
----
-
-## 🌐 Demo / Demo
-👉 https://igpro.vercel.app
-
----
 
 ## 📌 Descripción / Description
 
